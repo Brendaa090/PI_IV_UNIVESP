@@ -4,13 +4,13 @@ import plotly.express as px
 from sqlalchemy import create_engine
 
 # ==============================
-# Configurações de conexão
+# Configurações de conexão Railway
 # ==============================
 USER = "postgres"
-PASSWORD = "123456"
-HOST = "localhost"
-PORT = "5432"
-DB = "iot_db"
+PASSWORD = "SUA_SENHA_AQUI"
+HOST = "yamanote.proxy.rlwy.net"
+PORT = "19069"
+DB = "railway"
 
 TABLE = "weather_readings"
 
@@ -23,7 +23,6 @@ engine = create_engine(f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}")
 def load_view(view_name):
     query = f"SELECT * FROM {view_name}"
     return pd.read_sql(query, engine)
-
 
 # ==============================
 # Layout do Streamlit
@@ -72,8 +71,8 @@ elif aba == "🔥 Extremos de Temperatura":
 # ==============================
 elif aba == "💧 Umidade":
     st.subheader("💧 Umidade Relativa")
-    df_umid = load_view("umidade_diaria")
-    fig = px.line(df_umid, x="data", y="umidade", title="Umidade Relativa Diária")
+    df_umid = load_view("umidade_stats")
+    fig = px.line(df_umid, x="data", y=["hum_min", "hum_max"], title="Umidade Relativa Diária")
     st.plotly_chart(fig, use_container_width=True)
 
 # ==============================
@@ -81,8 +80,8 @@ elif aba == "💧 Umidade":
 # ==============================
 elif aba == "🌬️ Vento":
     st.subheader("🌬️ Velocidade do Vento")
-    df_vento = load_view("vento_diario")
-    fig = px.line(df_vento, x="data", y="vel_vento", title="Velocidade Média do Vento")
+    df_vento = load_view("vento_stats")
+    fig = px.line(df_vento, x="data", y=["vento_medio", "vento_max"], title="Velocidade do Vento (média e máxima)")
     st.plotly_chart(fig, use_container_width=True)
 
 # ==============================
@@ -91,5 +90,5 @@ elif aba == "🌬️ Vento":
 elif aba == "🌧️ Precipitação":
     st.subheader("🌧️ Precipitação Acumulada")
     df_prec = load_view("precipitacao_diaria")
-    fig = px.bar(df_prec, x="data", y="precipitacao", title="Precipitação Acumulada Diária")
+    fig = px.bar(df_prec, x="data", y="rain_max", title="Precipitação Máxima Diária")
     st.plotly_chart(fig, use_container_width=True)
