@@ -1,7 +1,0 @@
-# Ignorar ambiente virtual e dados do banco
-.venv/
-data_postgres/
-__pycache__/
-*.pyc
-data/weather_sum_all.csv
-

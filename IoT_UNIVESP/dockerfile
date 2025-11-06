@@ -1,0 +1,5 @@
+FROM postgres:latest
+ENV POSTGRES_DB=iot_db
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=sua_senha
+EXPOSE 5432
