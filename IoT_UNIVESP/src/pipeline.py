@@ -2,14 +2,10 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 
 # ==============================
-# Configurações de conexão
+# Configurações de conexão com NEON
 # ==============================
 engine = create_engine("postgresql://neondb_owner:npg_FLXS1ZIN8gQR@ep-late-water-a441wvij-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
 
-# ==============================
-# Conexão com o banco
-# ==============================
-engine = create_engine(f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}")
 
 # ==============================
 # Carregar CSV com encoding correto
