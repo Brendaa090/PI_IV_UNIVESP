@@ -4,14 +4,7 @@ from sqlalchemy import create_engine, text
 # ==============================
 # Configurações de conexão
 # ==============================
-USER = "postgres"
-PASSWORD = "123456"
-HOST = "localhost"
-PORT = "5432"
-DB = "iot_db"
-
-CSV_PATH = "data/weather_sum_all.csv"
-TABLE = "weather_readings"
+engine = create_engine("postgresql://neondb_owner:npg_FLXS1ZIN8gQR@ep-late-water-a441wvij-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
 
 # ==============================
 # Conexão com o banco
