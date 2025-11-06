@@ -1,11 +1,11 @@
-import pandas as pd
 from sqlalchemy import create_engine, text
+import pandas as pd
 
-# ==============================
-# Configurações de conexão com NEON
-# ==============================
-engine = create_engine("postgresql://neondb_owner:npg_FLXS1ZIN8gQR@ep-late-water-a441wvij-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
+DATABASE_URL = "postgresql://postgres:nTFGTwviJOOkAczpBPQebGCphHOtQZxX@postgres.railway.internal:5432/railway"
+CSV_PATH = "data/weather_sum_all.csv"
+TABLE = "weather_readings"
 
+engine = create_engine(DATABASE_URL)
 
 # ==============================
 # Carregar CSV com encoding correto
@@ -50,15 +50,12 @@ df.to_sql(TABLE, engine, if_exists="append", index=False)
 # Criar Views no Postgres
 # ==============================
 with engine.begin() as conn:
-    # Remover views antigas (se existirem)
     conn.execute(text("DROP VIEW IF EXISTS temp_media_diaria;"))
     conn.execute(text("DROP VIEW IF EXISTS temp_extremos;"))
     conn.execute(text("DROP VIEW IF EXISTS umidade_stats;"))
     conn.execute(text("DROP VIEW IF EXISTS vento_stats;"))
-    conn.execute(text("DROP VIEW IF EXISTS chuva_stats;"))
     conn.execute(text("DROP VIEW IF EXISTS precipitacao_diaria;"))
 
-    # 1️⃣ Temperatura média diária
     conn.execute(text("""
         CREATE OR REPLACE VIEW temp_media_diaria AS
         SELECT DATE(timestamp) AS data,
@@ -69,7 +66,6 @@ with engine.begin() as conn:
         ORDER BY DATE(timestamp);
     """))
 
-    # 2️⃣ Máximas e mínimas de temperatura
     conn.execute(text("""
         CREATE OR REPLACE VIEW temp_extremos AS
         SELECT DATE(timestamp) AS data,
@@ -81,7 +77,6 @@ with engine.begin() as conn:
         ORDER BY DATE(timestamp);
     """))
 
-    # 3️⃣ Umidade (máxima e mínima)
     conn.execute(text("""
         CREATE OR REPLACE VIEW umidade_stats AS
         SELECT DATE(timestamp) AS data,
@@ -93,7 +88,6 @@ with engine.begin() as conn:
         ORDER BY DATE(timestamp);
     """))
 
-    # 4️⃣ Vento (máximo e médio)
     conn.execute(text("""
         CREATE OR REPLACE VIEW vento_stats AS
         SELECT DATE(timestamp) AS data,
@@ -105,7 +99,6 @@ with engine.begin() as conn:
         ORDER BY DATE(timestamp);
     """))
 
-    # 5️⃣ Precipitação (chuva)
     conn.execute(text("""
         CREATE OR REPLACE VIEW precipitacao_diaria AS
         SELECT DATE(timestamp) AS data,
