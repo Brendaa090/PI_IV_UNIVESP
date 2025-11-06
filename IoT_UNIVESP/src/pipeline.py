@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine, text
 import pandas as pd
+import os
 
-DATABASE_URL = "postgresql://postgres:nTFGTwviJOOkAczpBPQebGCphHOtQZxX@postgres.railway.internal:5432/railway"
+DATABASE_URL = os.environ["DB_URL"]
 CSV_PATH = "data/weather_sum_all.csv"
 TABLE = "weather_readings"
 
