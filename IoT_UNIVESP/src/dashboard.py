@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 # Configurações de conexão Railway
 # ==============================
 USER = "postgres"
-PASSWORD = "SUA_SENHA_AQUI"
+PASSWORD = "123456"
 HOST = "yamanote.proxy.rlwy.net"
 PORT = "19069"
 DB = "railway"
