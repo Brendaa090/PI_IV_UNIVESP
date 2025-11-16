@@ -1,4 +1,4 @@
-🌐 Projeto IoT – Pipeline de Dados com Docker, PostgreSQL, Python e Streamlit
+🌐 Projeto Integrador – Pipeline de Dados com Docker, PostgreSQL, Python e Streamlit
 📘 Visão Geral
 
 Este projeto foi desenvolvido para a disciplina Disruptive Architectures: IoT, Big Data e IA e tem como objetivo construir um pipeline de dados IoT completo, com coleta, armazenamento, processamento e visualização de leituras de temperatura geradas por sensores.
